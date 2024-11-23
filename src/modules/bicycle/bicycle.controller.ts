@@ -10,13 +10,21 @@ const createBicycle = async (req: Request, res: Response) => {
       success: true,
       data: result,
     });
-  } catch (err: any) {
-    res.json({
-      message: 'Something went wrong',
-      success: false,
-      error: err,
-      stack: err.stack,
-    });
+  } catch (err) {
+    if (err instanceof Error) {
+      res.json({
+        message: 'Something went wrong',
+        success: false,
+        error: err,
+        stack: err.stack,
+      });
+    } else {
+      res.json({
+        message: 'Something went wrong',
+        success: false,
+        error: err,
+      });
+    }
   }
 };
 
