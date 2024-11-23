@@ -1,8 +1,9 @@
-import express from 'express';
-const app = express();
+import express, { Application } from 'express';
+import cors from 'cors';
+const app: Application = express();
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
+// middleware configs
+app.use(express.json());
+app.use(cors());
 
 export default app;
