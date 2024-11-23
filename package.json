@@ -9,7 +9,7 @@
     "lint:fix": "eslint src --fix",
     "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
     "start:dev": "ts-node-dev --respawn --transpile-only ./src/server",
-    "start:prod": "ts-node-dev --respawn --transpile-only ./dist/server"
+    "start:prod": "nodemon ./dist/server"
   },
   "keywords": [],
   "author": "",
@@ -20,7 +20,8 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
-    "mongoose": "^8.8.2"
+    "mongoose": "^8.8.2",
+    "nodemon": "^3.1.7"
   },
   "devDependencies": {
     "@eslint/js": "^9.15.0",
