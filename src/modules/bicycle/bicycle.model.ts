@@ -20,7 +20,9 @@ const BicycleSchema = new Schema<TBicycle>(
     },
     type: {
       type: String,
-      enum: ['Mountain', 'Road', 'Hybrid', 'BMX', 'Electric'],
+      enum: {
+        values: ['Mountain', 'Road', 'Hybrid', 'BMX', 'Electric'],
+      },
       required: true,
     },
     description: {
@@ -36,12 +38,24 @@ const BicycleSchema = new Schema<TBicycle>(
       type: Boolean,
       required: true,
     },
+    isDeleted: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
   },
   {
     timestamps: true,
-    versionKey: false,
   },
 );
+
+BicycleSchema.set('toJSON', {
+  transform: function (doc, ret) {
+    delete ret.isDeleted;
+    delete ret.__v;
+    return;
+  },
+});
 
 const BicycleModel = model('Product', BicycleSchema);
 
