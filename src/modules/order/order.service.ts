@@ -10,7 +10,7 @@ const createOrderInDB = async (orderData: TOrder) => {
 
   const getProductQuantity = await BicycleModel.findOne({
     _id: productId,
-    isDeleted: false,
+    isDeleted: { $ne: true },
   }).select({
     quantity: 1,
   });

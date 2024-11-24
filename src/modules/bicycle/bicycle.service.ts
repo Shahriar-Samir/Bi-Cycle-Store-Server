@@ -25,7 +25,10 @@ const getAllBicyclesFromDB = async (searchTerm: string) => {
 
 // get single bicycle data from database
 const getBicycleFromDB = async (productId: string) => {
-  const result = await BicycleModel.findById(productId).select({
+  const result = await BicycleModel.findOne({
+    _id: productId,
+    isDeleted: { $ne: true },
+  }).select({
     isDeleted: 0,
     __v: 0,
   });
@@ -38,8 +41,8 @@ const updateBicycleFromDB = async (
   updatedData: TBicycle,
 ) => {
   const options = { upsert: false, new: true };
-  const result = await BicycleModel.findByIdAndUpdate(
-    productId,
+  const result = await BicycleModel.findOneAndUpdate(
+    { _id: productId, isDeleted: { $ne: true } },
     updatedData,
     options,
   ).select({
@@ -52,7 +55,7 @@ const updateBicycleFromDB = async (
 // delete bicycle data from database
 const deleteBicycleFromDB = async (productId: string) => {
   const deleteStatus = await BicycleModel.updateOne(
-    { _id: productId },
+    { _id: productId, isDeleted: { $ne: true } },
     {
       isDeleted: true,
     },
