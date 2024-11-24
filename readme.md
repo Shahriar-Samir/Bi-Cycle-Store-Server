@@ -1,4 +1,4 @@
-### Project: Bi-Cycle store
+# Project: Bi-Cycle store
 Bi-Cycle store is server-side express application for managing bicycle store, bicycle products and orders.
 
 ## Features:
