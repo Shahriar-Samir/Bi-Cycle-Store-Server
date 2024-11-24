@@ -20,6 +20,6 @@ export default [
       'prefer-const': 'error',
       'no-console': 'warn',
     },
-    ignorePatterns: ['.node_modules/*', 'dist'],
+    ignores: ['.node_modules/*', 'dist'],
   },
 ];

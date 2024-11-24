@@ -7,7 +7,14 @@ const createBicycleInDB = async (bicycle: TBicycle) => {
 };
 
 const getAllBicyclesFromDB = async (searchTerm: string) => {
-  const result = await BicycleModel.find({ isDeleted: { $ne: true } }).select({
+  const result = await BicycleModel.find({
+    isDeleted: { $ne: true },
+    $or: [
+      { name: new RegExp(searchTerm, 'i') },
+      { brand: new RegExp(searchTerm, 'i') },
+      { type: new RegExp(searchTerm, 'i') },
+    ],
+  }).select({
     isDeleted: 0,
     __v: 0,
   });
@@ -26,7 +33,6 @@ const updateBicycleFromDB = async (
   productId: string,
   updatedData: TBicycle,
 ) => {
-  console.log('update');
   const options = { upsert: false, new: true };
   const result = await BicycleModel.findByIdAndUpdate(
     productId,

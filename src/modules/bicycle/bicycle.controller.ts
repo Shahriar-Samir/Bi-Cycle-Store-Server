@@ -1,7 +1,11 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import bicycleService from './bicycle.service';
 
-const createBicycle = async (req: Request, res: Response) => {
+const createBicycle = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const bicycleData = req.body;
     const result = await bicycleService.createBicycleInDB(bicycleData);
@@ -11,26 +15,17 @@ const createBicycle = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (err) {
-    if (err instanceof Error) {
-      res.json({
-        message: 'Something went wrong',
-        success: false,
-        error: err,
-        stack: err.stack,
-      });
-    } else {
-      res.json({
-        message: 'Something went wrong',
-        success: false,
-        error: err,
-      });
-    }
+    next(err);
   }
 };
 
-const getAllBicycles = async (req: Request, res: Response) => {
+const getAllBicycles = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
-    const { searchTerm } = req.query;
+    const searchTerm = req.query.searchTerm as string;
     const result = await bicycleService.getAllBicyclesFromDB(searchTerm);
     res.json({
       message: 'Bicycles retrieved successfully',
@@ -38,24 +33,11 @@ const getAllBicycles = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (err) {
-    if (err instanceof Error) {
-      res.json({
-        message: 'Something went wrong',
-        success: false,
-        error: err,
-        stack: err.stack,
-      });
-    } else {
-      res.json({
-        message: 'Something went wrong',
-        success: false,
-        error: err,
-      });
-    }
+    next(err);
   }
 };
 
-const getBicycle = async (req: Request, res: Response) => {
+const getBicycle = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { productId } = req.params;
     const result = await bicycleService.getBicycleFromDB(productId);
@@ -65,23 +47,14 @@ const getBicycle = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (err) {
-    if (err instanceof Error) {
-      res.json({
-        message: 'Something went wrong',
-        success: false,
-        error: err,
-        stack: err.stack,
-      });
-    } else {
-      res.json({
-        message: 'Something went wrong',
-        success: false,
-        error: err,
-      });
-    }
+    next(err);
   }
 };
-const updateBicycle = async (req: Request, res: Response) => {
+const updateBicycle = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const { productId } = req.params;
     const updatedData = req.body;
@@ -95,24 +68,15 @@ const updateBicycle = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (err) {
-    if (err instanceof Error) {
-      res.json({
-        message: 'Something went wrong',
-        success: false,
-        error: err,
-        stack: err.stack,
-      });
-    } else {
-      res.json({
-        message: 'Something went wrong',
-        success: false,
-        error: err,
-      });
-    }
+    next(err);
   }
 };
 
-const deleteBicycle = async (req: Request, res: Response) => {
+const deleteBicycle = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const { productId } = req.params;
     const result = await bicycleService.deleteBicycleFromDB(productId);
@@ -122,20 +86,7 @@ const deleteBicycle = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (err) {
-    if (err instanceof Error) {
-      res.json({
-        message: 'Something went wrong',
-        success: false,
-        error: err,
-        stack: err.stack,
-      });
-    } else {
-      res.json({
-        message: 'Something went wrong',
-        success: false,
-        error: err,
-      });
-    }
+    next(err);
   }
 };
 
@@ -144,5 +95,5 @@ export default {
   getAllBicycles,
   getBicycle,
   updateBicycle,
-  deleteBicycle
+  deleteBicycle,
 };

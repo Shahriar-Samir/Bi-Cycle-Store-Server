@@ -22,6 +22,8 @@ const BicycleSchema = new Schema<TBicycle>(
       type: String,
       enum: {
         values: ['Mountain', 'Road', 'Hybrid', 'BMX', 'Electric'],
+        message:
+          'Given value for type is invalid. Please choose from: Mountain, Road, Hybrid, BMX, Electric.',
       },
       required: true,
     },
