@@ -1,3 +1,4 @@
+// bicycle type
 export type TBicycle = {
   name: string;
   brand: string;

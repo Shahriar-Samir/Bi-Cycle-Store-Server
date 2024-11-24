@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import bicycleService from './bicycle.service';
 
+// create bicycle data on database
 const createBicycle = async (
   req: Request,
   res: Response,
@@ -19,6 +20,7 @@ const createBicycle = async (
   }
 };
 
+// get bicycle data from database
 const getAllBicycles = async (
   req: Request,
   res: Response,
@@ -37,6 +39,7 @@ const getAllBicycles = async (
   }
 };
 
+// get single bicycle data
 const getBicycle = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { productId } = req.params;
@@ -50,6 +53,8 @@ const getBicycle = async (req: Request, res: Response, next: NextFunction) => {
     next(err);
   }
 };
+
+// update Single bicycle data from database
 const updateBicycle = async (
   req: Request,
   res: Response,
@@ -72,6 +77,7 @@ const updateBicycle = async (
   }
 };
 
+// delete a bicycle data from database
 const deleteBicycle = async (
   req: Request,
   res: Response,

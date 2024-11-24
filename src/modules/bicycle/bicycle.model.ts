@@ -1,6 +1,7 @@
 import { model, Schema } from 'mongoose';
 import { TBicycle } from './bicycle.interface';
 
+// bicycle mongoose schema
 const BicycleSchema = new Schema<TBicycle>(
   {
     name: {
@@ -59,6 +60,7 @@ BicycleSchema.set('toJSON', {
   },
 });
 
+// bicycle model
 const BicycleModel = model('Product', BicycleSchema);
 
 export default BicycleModel;

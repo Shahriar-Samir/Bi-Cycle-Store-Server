@@ -1,11 +1,13 @@
 import { TBicycle } from './bicycle.interface';
 import BicycleModel from './bicycle.model';
 
+// create Bicycle in Database
 const createBicycleInDB = async (bicycle: TBicycle) => {
   const result = await BicycleModel.create(bicycle);
   return result;
 };
 
+// get multiple Bicycle from Database
 const getAllBicyclesFromDB = async (searchTerm: string) => {
   const result = await BicycleModel.find({
     isDeleted: { $ne: true },
@@ -21,6 +23,7 @@ const getAllBicyclesFromDB = async (searchTerm: string) => {
   return result;
 };
 
+// get single bicycle data from database
 const getBicycleFromDB = async (productId: string) => {
   const result = await BicycleModel.findById(productId).select({
     isDeleted: 0,
@@ -29,6 +32,7 @@ const getBicycleFromDB = async (productId: string) => {
   return result;
 };
 
+// update single bicycle data
 const updateBicycleFromDB = async (
   productId: string,
   updatedData: TBicycle,
@@ -45,6 +49,7 @@ const updateBicycleFromDB = async (
   return result;
 };
 
+// delete bicycle data from database
 const deleteBicycleFromDB = async (productId: string) => {
   const deleteStatus = await BicycleModel.updateOne(
     { _id: productId },

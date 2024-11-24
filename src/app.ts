@@ -19,6 +19,7 @@ app.get('/', (req: Request, res: Response) => {
   });
 });
 
+// global error handler middleware
 app.use((err: Error, req: Request, res: Response) => {
   if (err instanceof Error) {
     res.status(400).json({
