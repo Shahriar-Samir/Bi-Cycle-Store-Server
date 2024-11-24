@@ -2,11 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import bicycleService from './bicycle.service';
 
 // create bicycle data on database
-const createBicycle = async (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
+const createBicycle = async (req: Request, res: Response) => {
   try {
     const bicycleData = req.body;
     const result = await bicycleService.createBicycleInDB(bicycleData);
@@ -16,7 +12,20 @@ const createBicycle = async (
       data: result,
     });
   } catch (err) {
-    next(err);
+    if (err instanceof Error) {
+      res.status(400).json({
+        message: err.message,
+        success: false,
+        error: err,
+        stack: err.stack,
+      });
+    } else {
+      res.status(400).json({
+        message: err,
+        success: false,
+        error: err,
+      });
+    }
   }
 };
 
