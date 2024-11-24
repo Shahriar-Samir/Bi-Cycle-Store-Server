@@ -63,7 +63,9 @@ const deleteBicycleFromDB = async (productId: string) => {
   if (deleteStatus.modifiedCount) {
     return {};
   } else {
-    return deleteStatus;
+    throw {
+      message: `Product with id ${productId} does not exist.`,
+    };
   }
 };
 
