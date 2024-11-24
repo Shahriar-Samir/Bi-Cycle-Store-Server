@@ -19,22 +19,4 @@ app.get('/', (req: Request, res: Response) => {
   });
 });
 
-// global error handler middleware
-app.use((err: Error, req: Request, res: Response) => {
-  if (err instanceof Error) {
-    res.status(400).json({
-      message: err.message,
-      success: false,
-      error: err,
-      stack: err.stack,
-    });
-  } else {
-    res.status(400).json({
-      message: err,
-      success: false,
-      error: err,
-    });
-  }
-});
-
 export default app;

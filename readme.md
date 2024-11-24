@@ -4,7 +4,7 @@
 
 ## About the project
 
-Bi-Cycle store is a server-side express application for managing bicycle stores, bicycle products, and orders. Core technologies of this projects are Express.js, TypeScript, MongoDB with mongoose.
+Bi-Cycle store is a server-side express application for managing bicycle stores, bicycle products, and orders. Core technologies of this project are Express.js, TypeScript, MongoDB with mongoose.
 
 ## Features:
 
@@ -14,7 +14,7 @@ Bi-Cycle store is a server-side express application for managing bicycle stores,
 - Update single bicycle data.
 - Delete bicycle data.
 - Order a bicycle.
-- Get the sum of revenue of all orders
+- Get the sum of revenue of all orders.
 - Displays validation, 404, and other errors when incorrect data is entered in the input fields.
 
 ## Steps to Run the Project on Your Local Machine

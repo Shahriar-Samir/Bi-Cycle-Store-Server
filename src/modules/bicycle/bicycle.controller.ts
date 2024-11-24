@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from 'express';
+import { Request, Response } from 'express';
 import bicycleService from './bicycle.service';
 
 // create bicycle data on database
@@ -30,11 +30,7 @@ const createBicycle = async (req: Request, res: Response) => {
 };
 
 // get bicycle data from database
-const getAllBicycles = async (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
+const getAllBicycles = async (req: Request, res: Response) => {
   try {
     const searchTerm = req.query.searchTerm as string;
     const result = await bicycleService.getAllBicyclesFromDB(searchTerm);
@@ -44,12 +40,25 @@ const getAllBicycles = async (
       data: result,
     });
   } catch (err) {
-    next(err);
+    if (err instanceof Error) {
+      res.status(400).json({
+        message: err.message,
+        success: false,
+        error: err,
+        stack: err.stack,
+      });
+    } else {
+      res.status(400).json({
+        message: err,
+        success: false,
+        error: err,
+      });
+    }
   }
 };
 
 // get single bicycle data
-const getBicycle = async (req: Request, res: Response, next: NextFunction) => {
+const getBicycle = async (req: Request, res: Response) => {
   try {
     const { productId } = req.params;
     const result = await bicycleService.getBicycleFromDB(productId);
@@ -59,16 +68,25 @@ const getBicycle = async (req: Request, res: Response, next: NextFunction) => {
       data: result,
     });
   } catch (err) {
-    next(err);
+    if (err instanceof Error) {
+      res.status(400).json({
+        message: err.message,
+        success: false,
+        error: err,
+        stack: err.stack,
+      });
+    } else {
+      res.status(400).json({
+        message: err,
+        success: false,
+        error: err,
+      });
+    }
   }
 };
 
 // update Single bicycle data from database
-const updateBicycle = async (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
+const updateBicycle = async (req: Request, res: Response) => {
   try {
     const { productId } = req.params;
     const updatedData = req.body;
@@ -82,16 +100,25 @@ const updateBicycle = async (
       data: result,
     });
   } catch (err) {
-    next(err);
+    if (err instanceof Error) {
+      res.status(400).json({
+        message: err.message,
+        success: false,
+        error: err,
+        stack: err.stack,
+      });
+    } else {
+      res.status(400).json({
+        message: err,
+        success: false,
+        error: err,
+      });
+    }
   }
 };
 
 // delete a bicycle data from database
-const deleteBicycle = async (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
+const deleteBicycle = async (req: Request, res: Response) => {
   try {
     const { productId } = req.params;
     const result = await bicycleService.deleteBicycleFromDB(productId);
@@ -101,7 +128,20 @@ const deleteBicycle = async (
       data: result,
     });
   } catch (err) {
-    next(err);
+    if (err instanceof Error) {
+      res.status(400).json({
+        message: err.message,
+        success: false,
+        error: err,
+        stack: err.stack,
+      });
+    } else {
+      res.status(400).json({
+        message: err,
+        success: false,
+        error: err,
+      });
+    }
   }
 };
 

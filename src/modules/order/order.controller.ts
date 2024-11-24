@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from 'express';
+import { Request, Response } from 'express';
 import orderService from './order.service';
 
 const createOrder = async (req: Request, res: Response) => {
@@ -40,7 +40,6 @@ const createOrder = async (req: Request, res: Response) => {
 const getTotalRevenue = async (
   req: Request,
   res: Response,
-  next: NextFunction,
 ) => {
   try {
     const result = await orderService.calculateTotalRevenue();
@@ -50,7 +49,20 @@ const getTotalRevenue = async (
       data: result,
     });
   } catch (err) {
-    next(err);
+    if (err instanceof Error) {
+      res.status(400).json({
+        message: err.message,
+        success: false,
+        error: err,
+        stack: err.stack,
+      });
+    } else {
+      res.status(400).json({
+        message: 'Something went wrong',
+        success: false,
+        error: err,
+      });
+    }
   }
 };
 
