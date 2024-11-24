@@ -1,6 +1,10 @@
 # Project: Bi-Cycle store
+# Set: 4
+- Live Link: https://bi-cycle-store-server.vercel.app/
 
-Bi-Cycle store is a server-side express application for managing bicycle stores, bicycle products, and orders.
+## About the project
+
+Bi-Cycle store is a server-side express application for managing bicycle stores, bicycle products, and orders. Core technologies of this projects are Express.js, TypeScript, MongoDB with mongoose.
 
 ## Features:
 
